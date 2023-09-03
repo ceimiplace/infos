@@ -13,7 +13,7 @@ function App() {
       setData(mydata.data);
     }
     getData();
-  }, [data]);
+  }, []);
   return (
     <div className="App">
       {data.map((element) => (

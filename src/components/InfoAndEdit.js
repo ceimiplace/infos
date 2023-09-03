@@ -4,9 +4,15 @@ const InfoAndEdit = ({ data }) => {
   const [title, setTitle] = useState(data.title);
   const [firstName, setFirstName] = useState(data.firstName);
   const [lastName, setLastName] = useState(data.lastName);
-  const [dateOfBirth, setDateOfBirth] = useState(data.dob);
-  console.log(data);
-  function submitEdit() {}
+
+  const [day, month, year] = data.dob.split("/");
+  const dateObject = `${year}-${month}-${day}`;
+
+  const [dateOfBirth, setDateOfBirth] = useState(dateObject);
+
+  function saveChanges() {
+    setEditing(false);
+  }
   const editContainer = (
     <form className="editContainer">
       <div>
@@ -19,9 +25,6 @@ const InfoAndEdit = ({ data }) => {
           }}
           value={title}
         >
-          <option value="" disabled selected>
-            Select your option
-          </option>
           <option>Mr</option>
           <option>Mrs</option>
           <option>Miss</option>
@@ -77,10 +80,13 @@ const InfoAndEdit = ({ data }) => {
   );
   return (
     <div className="containerInfo">
+      <h3>User panel</h3>
       {editing ? editContainer : detailsContainer}
-      <button type="submit" onClick={submitEdit}>
-        {editing ? "Save" : "Edit"}
-      </button>
+      {editing ? (
+        <button onClick={() => saveChanges()}>Save</button>
+      ) : (
+        <button onClick={() => setEditing(true)}>Edit</button>
+      )}
     </div>
   );
 };
