@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 const InfoAndEdit = ({ data }) => {
-  const [editing, setEditing] = useState(true);
-  const [showError, setShowError] = useState(false);
-  const [title, setTitle] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-
-  function submitEdit() {
-    if (title && firstName && lastName && dateOfBirth) {
-      setEditing((prevState) => !prevState);
-    } else {
-      setShowError(true);
-    }
-  }
+  const [editing, setEditing] = useState(false);
+  const [title, setTitle] = useState(data.title);
+  const [firstName, setFirstName] = useState(data.firstName);
+  const [lastName, setLastName] = useState(data.lastName);
+  const [dateOfBirth, setDateOfBirth] = useState(data.dob);
+  console.log(data);
+  function submitEdit() {}
   const editContainer = (
     <form className="editContainer">
       <div>
@@ -26,8 +19,11 @@ const InfoAndEdit = ({ data }) => {
           }}
           value={title}
         >
-          <option>Mr.</option>
-          <option>Mrs.</option>
+          <option value="" disabled selected>
+            Select your option
+          </option>
+          <option>Mr</option>
+          <option>Mrs</option>
           <option>Miss</option>
         </select>
       </div>
@@ -68,9 +64,7 @@ const InfoAndEdit = ({ data }) => {
     <div className="detailsContainer">
       <ul>
         <li>
-          {title}
-          {firstName}
-          {lastName}
+          {title} {firstName} {lastName}
         </li>
         <li>{dateOfBirth}</li>
       </ul>
@@ -87,7 +81,6 @@ const InfoAndEdit = ({ data }) => {
       <button type="submit" onClick={submitEdit}>
         {editing ? "Save" : "Edit"}
       </button>
-      {showError ? error : null}
     </div>
   );
 };
