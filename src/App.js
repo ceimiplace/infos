@@ -4,6 +4,13 @@ import InfoAndEdit from "./components/InfoAndEdit";
 import { useEffect, useState } from "react";
 function App() {
   const [data, setData] = useState([]);
+  function updateState(index, newValue) {
+    let copyData = data;
+    let interestedObject = copyData.find((elem) => elem.id === index);
+    interestedObject = { ...interestedObject, ...newValue };
+    copyData[index] = interestedObject;
+    setData(copyData);
+  }
   useEffect(() => {
     async function getData() {
       const dataWeb = await fetch(
@@ -17,7 +24,14 @@ function App() {
   return (
     <div className="App">
       {data.map((element) => (
-        <InfoAndEdit data={element} key={element.id} />
+        <InfoAndEdit
+          data={element}
+          key={element.id}
+          updateState={(elem) => {
+            updateState(element.id, elem);
+            console.log(data);
+          }}
+        />
       ))}
     </div>
   );

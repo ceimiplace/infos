@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const InfoAndEdit = ({ data }) => {
+const InfoAndEdit = ({ data, updateState }) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [firstName, setFirstName] = useState(data.firstName);
@@ -12,6 +12,7 @@ const InfoAndEdit = ({ data }) => {
 
   function saveChanges() {
     setEditing(false);
+    updateState({ title, firstName, lastName, dob: dateOfBirth });
   }
   const editContainer = (
     <form className="editContainer">
